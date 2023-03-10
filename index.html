@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TicTacToe</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <h2>
+      <label for="player-select">Select which player goes first: </label>
+    </h2>
+    <select name="players" id="player-select">
+      <option value="playerX">Player X</option>
+      <option value="playerO">Player O</option>
+    </select>
+    <span class="nameSubmit">
+      <label for="nameX">Player X Name:</label>
+      <input type="text" id="nameX" name="name" />
+      <button id="nameBtnX">Submit</button>
+      VS
+      <label for="nameO">Player O Name:</label>
+      <input type="text" id="nameO" name="name" />
+      <button id="nameBtnO">Submit</button>
+    </span>
+
+    <div id="scoreBoard"></div>
+
+    <div id="board">
+      <div class="cell" id="0">x</div>
+      <div class="cell" id="1">o</div>
+      <div class="cell" id="2"></div>
+      <div class="cell" id="3">x</div>
+      <div class="cell" id="4"></div>
+      <div class="cell" id="5"></div>
+      <div class="cell" id="6"></div>
+      <div class="cell" id="7"></div>
+      <div class="cell" id="8">x</div>
+    </div>
+    <button id="restartButton">Restart</button>
+  </body>
+</html>
