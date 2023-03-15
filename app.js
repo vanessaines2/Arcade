@@ -23,6 +23,7 @@ const gameState = {
     },
   ],
   currentPlayerIndex: 0,
+  gameOver: false,
 
   board: [
     ["", "", ""],
@@ -30,6 +31,15 @@ const gameState = {
     ["", "", ""],
   ],
 };
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const player1Name = e.target[0].value;
+  const player2Name = e.target[1].value;
+  gameState.players[0].name = player1Name;
+  gameState.players[1].name = player2Name;
+  renderScoreBoard();
+});
 function renderScoreBoard() {
   scoreboard.innerHTML = "";
   for (const player of gameState.players) {
@@ -42,16 +52,6 @@ function renderScoreBoard() {
   }
 }
 renderScoreBoard();
-
-nameBtnX.addEventListener("click", function () {
-  gameState.players[0].name = nameX.value;
-  renderScoreBoard();
-});
-
-nameBtnO.addEventListener("click", function () {
-  gameState.players[1].name = nameO.value;
-  renderScoreBoard();
-});
 
 playerOption.addEventListener("change", (event) => {
   console.log(event.target.value);
@@ -94,7 +94,7 @@ function renderBoard() {
 function checkWin() {
   checkRow();
   checkColumn();
-  //checkDiagonals();
+  checkDiagonals();
 }
 
 function checkRow() {
@@ -104,7 +104,7 @@ function checkRow() {
       gameState.board[i][0] === gameState.board[i][1] &&
       gameState.board[i][1] === gameState.board[i][2]
     ) {
-      console.log("Winner!1");
+      winningMessage();
     }
   }
 }
@@ -112,51 +112,40 @@ function checkRow() {
 function checkColumn() {
   for (let j = 0; j < gameState.board.length; j++) {
     if (
-      gameState.board[j][0] !== "" &&
+      gameState.board[0][j] !== "" &&
       gameState.board[0][j] === gameState.board[1][j] &&
       gameState.board[1][j] === gameState.board[2][j]
     ) {
-      console.log("winner!");
+      winningMessage();
     }
   }
 }
 
 function checkDiagonals() {
-  for (let j = 0; j < gameState.board.length; j++) {
-    if (
-      gameState.board[j][0] !== "" &&
-      gameState.board[0][0] === gameState.board[1][1] &&
-      gameState.board[1][1] === gameState.board[2][2]
-    ) {
-      console.log("Winner!");
-    } else if (
-      gameState.board[j][0] !== "" &&
-      gameState.board[0][2] === gameState.board[1][1] &&
-      gameState.board[1][1] === gameState.board[2][0]
-    ) {
-      console.log("win!");
-    }
+  if (
+    gameState.board[0][0] !== "" &&
+    gameState.board[0][0] === gameState.board[1][1] &&
+    gameState.board[1][1] === gameState.board[2][2]
+  ) {
+    winningMessage();
+  } else if (
+    gameState.board[0][2] !== "" &&
+    gameState.board[0][2] === gameState.board[1][1] &&
+    gameState.board[1][1] === gameState.board[2][0]
+  ) {
+    winningMessage();
   }
 }
-function checkDraw() {
-  for (let i = 0; i < gameState.board.length; i++) {
-    for (let j = 0; j < gameState.board.length; j++) {}
-  }
-}
-function getWinner() {
-  const player1score = gameState.players[0].score;
-  const player2score = gameState.players[1].score;
-  if (player1score === player2score) {
-    return "No winner, tie game!";
-  } else if (player1score > player2score) {
-    return `${gameState.players[0].name} won!!`;
-  } else {
-    return `${gameState.players[1].name} won!!`;
-  }
-}
-function resetBoard() {}
+function getDraw() {}
+
 restartButton.addEventListener("click", resetBoard);
 
+function resetBoard() {
+  console.log("restarts");
+}
+
 function winningMessage() {
-  alert("Winner!!!!!");
+  alert(
+    `${gameState.players[gameState.currentPlayerIndex].name} is the winner!!!!!`
+  );
 }
