@@ -9,7 +9,7 @@ const nameO = document.querySelector("#nameO");
 const playerName = document.querySelector(".player");
 const playerOption = document.querySelector("#player-option");
 
-const gameState = {
+let gameState = {
   players: [
     {
       name: "",
@@ -46,8 +46,7 @@ function renderScoreBoard() {
     const playerEl = document.createElement("div");
     playerEl.classList.add("player");
     playerEl.innerHTML = `
-    <label> Player: ${player.name}</label>
-    <p>Score: ${player.score}</p>`;
+    <label> Player: ${player.name}</label>`;
     scoreboard.append(playerEl);
   }
 }
@@ -77,6 +76,7 @@ function onBoardClick(e) {
     gameState.board[row][col] = gameState.currentPlayerIndex === 0 ? "O" : "X";
     renderBoard();
     checkWin();
+    getDraw();
     switchPlayer();
   }
 }
@@ -136,16 +136,64 @@ function checkDiagonals() {
     winningMessage();
   }
 }
-function getDraw() {}
+function getDraw() {
+  // make a for loop through every position on board
+  for (let i = 0; i < gameState.board.length; i++) {
+    for (let j = 0; j < gameState.board.length; j++) {
+      const currentCell = gameState.board[i][j];
+      if (currentCell === "") {
+        return;
+      }
+    }
+  }
+  alert("It's a Draw!!");
+}
 
 restartButton.addEventListener("click", resetBoard);
 
 function resetBoard() {
   console.log("restarts");
+  gameState = {
+    players: [
+      {
+        name: "",
+        user: ["x", "o"],
+        score: 0,
+      },
+      {
+        name: "",
+        user: ["x", "o"],
+        score: 0,
+      },
+    ],
+    currentPlayerIndex: 0,
+    gameOver: false,
+
+    board: [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ],
+  };
+  renderBoard();
 }
 
 function winningMessage() {
   alert(
     `${gameState.players[gameState.currentPlayerIndex].name} is the winner!!!!!`
   );
+}
+
+function playComputer() {
+  let emptyPositionFound = false;
+  while (!emptyPositionFound) {
+    const rowIdx = Math.floor(Math.random() * 3);
+    const colIdx = Math.floor(Math.random() * 3);
+
+    // check if that position in the board is empty
+
+    //if it is, reset emptyPositionFound = true
+    // then play the computer move
+  }
+  switchPlayer();
 }
