@@ -2,8 +2,6 @@ const board = document.querySelector("#board");
 const cell = document.querySelector(".cell");
 const restartButton = document.querySelector("#restartButton");
 const scoreboard = document.querySelector("#scoreBoard");
-const nameBtnX = document.querySelector("#nameBtnX");
-const nameBtnO = document.querySelector("#nameBtnO");
 const nameX = document.querySelector("#nameX");
 const nameO = document.querySelector("#nameO");
 const playerName = document.querySelector(".player");
@@ -24,7 +22,7 @@ let gameState = {
   ],
   currentPlayerIndex: 0,
   gameOver: false,
-
+  computer: false,
   board: [
     ["", "", ""],
     ["", "", ""],
@@ -54,10 +52,8 @@ renderScoreBoard();
 
 playerOption.addEventListener("change", (event) => {
   console.log(event.target.value);
-  if (event.target.value === "Player O") {
-    gameState.currentPlayerIndex = 0;
-  } else {
-    gameState.currentPlayerIndex = 1;
+  if (event.target.value === "computer") {
+    gameState.computer = true;
   }
 });
 function switchPlayer() {
@@ -78,6 +74,11 @@ function onBoardClick(e) {
     checkWin();
     getDraw();
     switchPlayer();
+    // if player 2 is computer run play computer, if not then dont run
+    // playComputer();
+    if (gameState.computer === true) {
+      playComputer();
+    }
   }
 }
 board.addEventListener("click", onBoardClick);
@@ -191,12 +192,14 @@ function playComputer() {
     const colIdx = Math.floor(Math.random() * 3);
 
     // check if that position in the board is empty
-    if (gameState.board === "") {
+    if (gameState.board[rowIdx][colIdx] === "") {
       emptyPositionFound = true;
+      gameState.board[rowIdx][colIdx] = "X";
     }
 
     //if it is, reset emptyPositionFound = true
     // then play the computer move
   }
+  renderBoard();
   switchPlayer();
 }
