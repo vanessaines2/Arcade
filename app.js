@@ -191,6 +191,9 @@ function playComputer() {
     const colIdx = Math.floor(Math.random() * 3);
 
     // check if that position in the board is empty
+    if (gameState.board === "") {
+      emptyPositionFound = true;
+    }
 
     //if it is, reset emptyPositionFound = true
     // then play the computer move
