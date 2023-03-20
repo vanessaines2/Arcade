@@ -182,7 +182,6 @@ computerBtn.addEventListener("click", (event) => {
   console.log(event.target.value);
   if (event.target.value === "computer") {
     gameState.computer = true;
-    playComputer();
   }
 });
 function playComputer() {
