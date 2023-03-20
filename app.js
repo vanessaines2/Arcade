@@ -48,12 +48,6 @@ function renderScoreBoard() {
 }
 renderScoreBoard();
 
-computerBtn.addEventListener("click", (event) => {
-  console.log(event.target.value);
-  if (event.target.value === "computer") {
-    gameState.computer = true;
-  }
-});
 function switchPlayer() {
   if (gameState.currentPlayerIndex === 0) {
     gameState.currentPlayerIndex = 1;
@@ -79,6 +73,7 @@ function onBoardClick(e) {
     }
   }
 }
+
 board.addEventListener("click", onBoardClick);
 
 function renderBoard() {
@@ -183,7 +178,13 @@ function winningMessage() {
   );
   resetBoard();
 }
-
+computerBtn.addEventListener("click", (event) => {
+  console.log(event.target.value);
+  if (event.target.value === "computer") {
+    gameState.computer = true;
+    playComputer();
+  }
+});
 function playComputer() {
   let emptyPositionFound = false;
   while (!emptyPositionFound) {
