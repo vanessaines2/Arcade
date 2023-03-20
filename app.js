@@ -169,7 +169,7 @@ function resetBoard() {
     ],
     currentPlayerIndex: 0,
     gameOver: false,
-
+    computer: false,
     board: [
       ["", "", ""],
       ["", "", ""],
