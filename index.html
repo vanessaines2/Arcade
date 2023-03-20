@@ -10,18 +10,13 @@
   </head>
   <body>
     <h1>Tic Tac Toe</h1>
-    <h2>
-      <label for="player-option">Select opponent </label>
-    </h2>
-    <select name="players" id="player-option">
-      <option value="Player X">Player X</option>
-      <option value="computer"> Computer</option>
-    </select>
+   
     <form>
       <input type="text" placeholder="player 1 name" />VS 
       <input type="text" placeholder="player 2 name" />
-      <button type="submit">Submit Names</button>
-
+      <button type="submit" id="nameBtn">Submit Names</button>
+      <br>
+ <button type="submit" value= "computer" id="computerBtn">Play Computer</button>
 
     <div id="scoreBoard"></div>
 

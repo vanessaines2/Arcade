@@ -2,11 +2,9 @@ const board = document.querySelector("#board");
 const cell = document.querySelector(".cell");
 const restartButton = document.querySelector("#restartButton");
 const scoreboard = document.querySelector("#scoreBoard");
-const nameX = document.querySelector("#nameX");
-const nameO = document.querySelector("#nameO");
 const playerName = document.querySelector(".player");
 const playerOption = document.querySelector("#player-option");
-
+const computerBtn = document.querySelector("#computerBtn");
 let gameState = {
   players: [
     {
@@ -50,7 +48,7 @@ function renderScoreBoard() {
 }
 renderScoreBoard();
 
-playerOption.addEventListener("change", (event) => {
+computerBtn.addEventListener("click", (event) => {
   console.log(event.target.value);
   if (event.target.value === "computer") {
     gameState.computer = true;
@@ -68,14 +66,14 @@ function onBoardClick(e) {
   const row = e.target.id[0];
   const col = e.target.id[1];
   console.log(row, col);
+
   if (gameState.board[row][col] === "") {
     gameState.board[row][col] = gameState.currentPlayerIndex === 0 ? "O" : "X";
     renderBoard();
     checkWin();
     getDraw();
     switchPlayer();
-    // if player 2 is computer run play computer, if not then dont run
-    // playComputer();
+    // if player 2 is computer run play computer,
     if (gameState.computer === true) {
       playComputer();
     }
@@ -148,12 +146,12 @@ function getDraw() {
     }
   }
   alert("It's a Draw!!");
+  resetBoard();
 }
 
 restartButton.addEventListener("click", resetBoard);
 
 function resetBoard() {
-  console.log("restarts");
   gameState = {
     players: [
       {
@@ -183,6 +181,7 @@ function winningMessage() {
   alert(
     `${gameState.players[gameState.currentPlayerIndex].name} is the winner!!!!!`
   );
+  resetBoard();
 }
 
 function playComputer() {
